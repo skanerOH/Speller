@@ -16,6 +16,8 @@ void Checker::LoadDicAndTexts() {
         prefix="../";
         reader=Reader(prefix+filesNames[0]);
         if (reader.FillWordsVector())
+            dictionary = reader.GetPtrWordsVector();
+        else
             return;
     }
 
