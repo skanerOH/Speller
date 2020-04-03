@@ -33,8 +33,8 @@ void Checker::CreateStructuresToCheck() {
     PushInitResults(hashtable_ptr, "hashtable");
     PushInitResults(trie_ptr,"trie");
     PushInitResults(bst_ptr,"bst");
-    PushInitResults(stdvector_ptr,"std::vector");
-    PushInitResults(stdunorderedmap_ptr, "std::unordered_map");
+    PushInitResults(stdvector_ptr,"std_vector");
+    PushInitResults(stdunorderedmap_ptr, "std_unordered_map");
 }
 
 void Checker::PushInitResults(std::shared_ptr<DataStructure> ptr, std::string name) {
@@ -77,6 +77,21 @@ void Checker::PrintResults() {
     for (auto res = result.begin(); res<result.end(); ++res)
     {
         std::cout << *res << std::endl;
+    }
+}
+
+void Checker::WriteErrorFiles() {
+    for (int i=0; i<structuresToCheck.size(); ++i) {
+        std::ofstream file(errorWordsDirPath+structuresToCheck[i].second+".txt");
+        bool r = file.is_open();
+        for (auto text = texts.begin(); text < texts.end(); ++text) {
+            for (auto word = (*text)->begin(); word < (*text)->end(); ++word)
+            {
+                if (!(structuresToCheck[i].first->Check(*word)))
+                    file << *word+'\n';
+            }
+        }
+        file.close();
     }
 }
 
