@@ -7,9 +7,17 @@ Checker::Checker() {
 }
 
 void Checker::LoadDicAndTexts() {
+    std::string prefix="";
     Reader reader(filesNames[0]);
     if (reader.FillWordsVector())
         dictionary = reader.GetPtrWordsVector();
+    else
+    {
+        prefix="../";
+        reader=Reader(prefix+filesNames[0]);
+        if (reader.FillWordsVector())
+            return;
+    }
 
     std::random_device rd;
     std::mt19937 g(rd());
@@ -17,7 +25,7 @@ void Checker::LoadDicAndTexts() {
 
     for (int i=1; i<6; ++i)
     {
-        reader=Reader(filesNames[i]);
+        reader=Reader(prefix+filesNames[i]);
         if (reader.FillWordsVector())
             texts.push_back(reader.GetPtrWordsVector());
     }
