@@ -20,6 +20,7 @@ private:
     const std::string filesNames [6] ={"dictionary.txt", "Texts/alice.txt", "Texts/dracula.txt", "Texts/holmes.txt", "Texts/sherlock.txt", "Texts/tolstoy.txt"}; // array of paths to test texts
     std::vector<std::string> result; //vector of strings, where check results will be written
     const std::string errorWordsDirPath="error_Words/"; //consists path to dir where error words files are written
+    std::string prefix {""};
 
     void LoadDicAndTexts(); //(fills dictionary and texts fields) (used in constructor)
 

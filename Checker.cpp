@@ -7,7 +7,6 @@ Checker::Checker() {
 }
 
 void Checker::LoadDicAndTexts() {
-    std::string prefix="";
     Reader reader(filesNames[0]);
     if (reader.FillWordsVector())
         dictionary = reader.GetPtrWordsVector();
@@ -92,7 +91,7 @@ void Checker::PrintResults() {
 
 void Checker::WriteErrorFiles() {
     for (int i=0; i<structuresToCheck.size(); ++i) {
-        std::ofstream file(errorWordsDirPath+structuresToCheck[i].second+".txt");
+        std::ofstream file(prefix+errorWordsDirPath+structuresToCheck[i].second+".txt");
         bool r = file.is_open();
         for (auto text = texts.begin(); text < texts.end(); ++text) {
             for (auto word = (*text)->begin(); word < (*text)->end(); ++word)
